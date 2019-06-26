@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="calculator">
+
+  <input type="text" class="calculator-screen" value="" disabled />
+  
+  <div class="calculator-keys">
+    
+    <button type="button" class="operator" value="+">+</button>
+    <button type="button" class="operator" value="-">-</button>
+    <button type="button" class="operator" value="*">&times;</button>
+    <button type="button" class="operator" value="/">&divide;</button>
+
+    <button type="button" value="7">7</button>
+    <button type="button" value="8">8</button>
+    <button type="button" value="9">9</button>
+
+
+    <button type="button" value="4">4</button>
+    <button type="button" value="5">5</button>
+    <button type="button" value="6">6</button>
+
+
+    <button type="button" value="1">1</button>
+    <button type="button" value="2">2</button>
+    <button type="button" value="3">3</button>
+
+
+    <button type="button" value="0">0</button>
+    <button type="button" class="decimal" value=".">.</button>
+    <button type="button" class="all-clear" value="all-clear">AC</button>
+
+    <button type="button" class="equal-sign operator" value="=">=</button>
+
+  </div>
+</div>
+
+<script src="calculator.js"></script>
+<!--
+  First operand:<br>
+  <input type="number" id="operand1"><br>
+  Operator:<br>
+  <input type="radio" id="operator" value="+"> Add<br>
+  <input type="radio" id="operator" value="-"> Subtract<br>
+  <input type="radio" id="operator" value="*"> Multiply<br>
+  <input type="radio" id="operator" value="/"> Divide<br>
+  Second operand:<br>
+  <input type="number" id="operand2"><br><br>
+  <button type="button" onclick="myCalculator()">Calculate</button>
+  <input type="text" id="result" value="" disabled/>
+
+<script>
+function myCalculator() {
+	var operand1 = document.getElementById('operand1').value;
+	var operand2 = document.getElementById('operand2').value;
+	var operator = document.getElementById('operator').value;
+  	var xhttp = new XMLHttpRequest();
+  	xhttp.open("POST", "http://127.0.0.1:3010/myaction", true);
+  	xhttp.onreadystatechange = function() {
+    	if (this.readyState == 4 && this.status == 200) {
+    		var value = JSON.parse(this.responseText);
+    		console.log("value = " + value.result);
+      		document.getElementById("result").value = value.result;
+    	}
+    }
+
+  	var data = {"op1": Number(operand1), "op2": Number(operand2), "oper": operator };
+  	xhttp.setRequestHeader("Content-type", "application/json");
+  	xhttp.send(JSON.stringify(data));
+
+};
+
+</script>
+-->
+
+</body>
+</html>
